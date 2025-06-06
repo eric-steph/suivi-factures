@@ -1,0 +1,52 @@
+let factures = JSON.parse(localStorage.getItem("factures") || "[]");
+        <td>${e.agent_recouvreur}</td>
+      </tr>`;
+  });
+}
+
+function renderRapport() {
+  const totalFacture = factures.reduce((sum, f) => sum + parseFloat(f.montant), 0);
+  const totalEncaissement = encaissements.reduce((sum, e) => {
+    const f = factures.find(f => f.id == e.facture_id);
+    return sum + parseFloat(f?.montant || 0);
+  }, 0);
+  document.getElementById("total-facture").textContent = totalFacture.toFixed(2);
+  document.getElementById("total-encaissement").textContent = totalEncaissement.toFixed(2);
+  document.getElementById("solde").textContent = (totalEncaissement - totalFacture).toFixed(2);
+}
+
+document.getElementById("form-facture").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = {
+    id: Date.now(),
+    client: document.getElementById("client").value,
+    montant: document.getElementById("montant").value,
+    type_reglement: document.getElementById("type-reglement").value,
+    agent_facturier: document.getElementById("agent-facturier").value
+  };
+  factures.push(f);
+  saveData();
+  renderFactures();
+  renderEncaissements();
+  renderRapport();
+});
+
+document.getElementById("form-encaissement").addEventListener("submit", e => {
+  e.preventDefault();
+  const eid = parseInt(document.getElementById("facture-select").value);
+  if (!eid) return alert("Veuillez choisir une facture !");
+  const enc = {
+    facture_id: eid,
+    mode_paiement: document.getElementById("mode-paiement").value,
+    agent_recouvreur: document.getElementById("agent-recouvreur").value
+  };
+  encaissements.push(enc);
+  saveData();
+  renderEncaissements();
+  renderRapport();
+});
+
+// Initialisation
+renderFactures();
+renderEncaissements();
+renderRapport();

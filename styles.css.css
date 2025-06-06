@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+.tabs button {
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+.tab-content {
+  display: none;
+  margin-top: 20px;
+}
+.tab-content.active {
+  display: block;
+}
+input, select {
+  margin-right: 10px;
+  padding: 5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+td, th {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
