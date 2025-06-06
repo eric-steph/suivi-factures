@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Suivi Factures & Encaissements</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Suivi des Factures et Encaissements</h1>
+
+  <div class="tabs">
+    <button onclick="showTab('factures')">Factures</button>
+    <button onclick="showTab('encaissements')">Encaissements</button>
+    <button onclick="showTab('rapport')">Rapport</button>
+  </div>
+
+  <!-- Onglet Factures -->
+  <div id="factures" class="tab-content active">
+    <h2>Ajouter une facture</h2>
+    <form id="form-facture">
+      <select id="client" required>
+        <option value="">Sélectionner un client</option>
+        <option value="Jean Dupont">Jean Dupont</option>
+        <option value="Marie Curie">Marie Curie</option>
+      </select>
+      <input type="number" id="montant" placeholder="Montant" required />
+      <select id="type-reglement">
+        <option value="espece">Espèce</option>
+        <option value="retour">Retour</option>
+      </select>
+      <select id="agent-facturier" required>
+        <option value="">Agent facturier</option>
+        <option value="Pierre">Pierre</option>
+        <option value="Paul">Paul</option>
+      </select>
+      <button type="submit">Ajouter</button>
+    </form>
+    <table>
+      <thead><tr><th>Client</th><th>Montant</th><th>Type règlement</th><th>Agent</th></tr></thead>
+      <tbody id="liste-factures"></tbody>
+    </table>
+  </div>
+
+  <!-- Onglet Encaissements -->
+  <div id="encaissements" class="tab-content">
+    <h2>Ajouter un encaissement</h2>
+    <form id="form-encaissement">
+      <select id="facture-select" required></select>
+      <select id="mode-paiement">
+        <option value="espece">Espèce</option>
+        <option value="retour">Retour</option>
+      </select>
+      <select id="agent-recouvreur" required>
+        <option value="">Agent recouvreur</option>
+        <option value="Anne">Anne</option>
+        <option value="Marc">Marc</option>
+      </select>
+      <button type="submit">Ajouter</button>
+    </form>
+    <table>
+      <thead><tr><th>Facture</th><th>Montant</th><th>Mode paiement</th><th>Agent</th></tr></thead>
+      <tbody id="liste-encaissements"></tbody>
+    </table>
+  </div>
+
+  <!-- Onglet Rapport -->
+  <div id="rapport" class="tab-content">
+    <h2>Rapport Journalier</h2>
+    <p>Total facturé : <span id="total-facture">0</span> €</p>
+    <p>Total encaissé : <span id="total-encaissement">0</span> €</p>
+    <p>Solde net : <span id="solde">0</span> €</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
